@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jgre.dao.CommonDao">
+	
+	<resultMap type="companyBaseInfo" id="companyResult">
+	<result column="company_id" 	property="company_id" />
+		<result column="company_name" 	property="company_name" />
+		<result column="company_enname" 	property="company_enname" />
+			<result column="company_logo_url" 	property="company_logo_url" />
+			<result column="company_tel" 	property="company_tel" />
+			<result column="company_fax" 	property="company_fax" />
+			<result column="company_qq" 	property="company_qq" />
+			<result column="company_email" 	property="company_email" />
+			<result column="company_address" 	property="company_address" />
+			<result column="company_yuming" 	property="company_yuming" />
+			<result column="company_contactuser1" 	property="company_contactuser1" />
+			<result column="company_phone1" 	property="company_phone1" />
+			<result column="company_qq1" 	property="company_qq1" />
+			<result column="company_contactuser2" 	property="company_contactuser2" />
+			<result column="company_phone2" 	property="company_phone2" />
+			<result column="company_qq2" 	property="company_qq2" />
+	</resultMap>
+	
+	<resultMap type="kinMaxShow" id="kinMaxShowResult">
+	<result column="kinmaxshow_id" 	property="kinmaxshow_id" />
+		<result column="height" 	property="height" />
+		<result column="intervalTime" 	property="intervalTime" />
+			<result column="switchTime" 	property="switchTime" />
+			<result column="easing" 	property="easing" />
+			<result column="imageAlign" 	property="imageAlign" />
+			<result column="buttonStyle" 	property="buttonStyle" />
+			<result column="switchEvent" 	property="switchEvent" />
+			<result column="showIndex" 	property="showIndex" />
+			<result column="normal" 	property="normal" />
+			<result column="foucs" 	property="foucs" />
+	</resultMap>
+	
+	<!-- 公司信息 -->
+	<select id="getCompanyBaseInfo" resultMap="companyResult">
+	    select company_id,company_name,company_enname,company_logo_url,company_tel,company_fax,company_qq,company_email,company_address,
+company_yuming,company_contactuser1,company_phone1,company_qq1,company_contactuser2,company_phone2,company_qq2 from companybaseinfo 
+	</select>
+	
+	<update id="updateCompanyBaseInfo" parameterType="companyBaseInfo">
+		UPDATE companybaseinfo
+		<set>
+			<if test="company_name != null">company_name=#{company_name}</if>	
+			<if test="company_enname != null">,company_enname=#{company_enname}</if>	
+			<if test="company_logo_url != null">,company_logo_url=#{company_logo_url}</if>	
+			<if test="company_tel != null">,company_tel=#{company_tel}</if>	
+			<if test="company_fax != null">,company_fax=#{company_fax}</if>	
+			<if test="company_qq != null">,company_qq=#{company_qq}</if>	
+			<if test="company_email != null">,company_email=#{company_email}</if>	
+			<if test="company_address != null">,company_address=#{company_address}</if>	
+			<if test="company_yuming != null">,company_yuming=#{company_yuming}</if>	
+			<if test="company_contactuser1 != null">,company_contactuser1=#{company_contactuser1}</if>	
+			<if test="company_phone1 != null">,company_phone1=#{company_phone1}</if>	
+			<if test="company_qq1 != null">,company_qq1=#{company_qq1}</if>	
+			<if test="company_contactuser2 != null">,company_contactuser2=#{company_contactuser2}</if>	
+			<if test="company_phone2 != null">,company_phone2=#{company_phone2}</if>	
+			<if test="company_qq2 != null">,company_qq2=#{company_qq2}</if>	
+		</set>
+		WHERE company_id = #{company_id}
+	</update>
+	<!-- 换灯片 -->
+		<select id="getKinMaxShow" resultMap="kinMaxShowResult">
+	  select kinmaxshow_id,height,intervalTime,switchTime,easing,imageAlign,buttonStyle,switchEvent,showIndex,normal,foucs from kinmaxshow
+	</select>
+	
+	<update id="updateKinMaxShow" parameterType="kinMaxShow">
+		UPDATE kinmaxshow
+		<set>
+			<if test="height != null">height=#{height}</if>	
+			<if test="intervalTime != null">,intervalTime=#{intervalTime}</if>	
+			<if test="switchTime != null">,switchTime=#{switchTime}</if>	
+			<if test="easing != null">,easing=#{easing}</if>	
+			<if test="imageAlign != null">,imageAlign=#{imageAlign}</if>	
+			<if test="buttonStyle != null">,buttonStyle=#{buttonStyle}</if>	
+			<if test="switchEvent != null">,switchEvent=#{switchEvent}</if>	
+			<if test="showIndex != null">,showIndex=#{showIndex}</if>	
+			<if test="normal != null">,normal=#{normal}</if>	
+			<if test="foucs != null">,foucs=#{foucs}</if>
+		</set>
+		WHERE kinmaxshow_id = #{kinmaxshow_id}
+	</update>
+</mapper>

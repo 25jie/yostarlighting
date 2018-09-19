@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jgre.dao.PictureDao">
+    <sql id="columns">
+        picture_id,
+        picture_title,
+        pucture_url,
+        picture_name,
+        picture_detail,
+        picture_uploadtime,
+        picture_author,
+        picture_showOnIndex,
+        picture_newname,
+        picture_category_id,
+        extra1
+	</sql>
+    <sql id="whereClause">
+        <where>
+            <if test="picture_id != null">picture_id = #{picture_id}</if>
+            <if test="picture_title != null">and picture_title=#{picture_title}</if>
+            <if test="pucture_url != null">and pucture_url=#{pucture_url}</if>
+            <if test="picture_name != null">and picture_name=#{picture_name}</if>
+            <if test="picture_newname != null">and picture_newname=#{picture_newname}</if>
+            <if test="picture_detail != null">and picture_detail=#{picture_detail}</if>
+            <if test="picture_uploadtime != null">and picture_uploadtime=#{picture_uploadtime}</if>
+            <if test="picture_author != null">and picture_author=#{picture_author}</if>
+            <if test="picture_showOnIndex != null">and picture_showOnIndex=#{picture_showOnIndex}</if>
+            <if test="picture_category_id != null">and picture_category_id=#{picture_category_id}</if>
+        </where>
+    </sql>
+
+    <resultMap type="picture" id="pictureResult">
+        <result column="picture_id" property="picture_id"/>
+        <result column="picture_title" property="picture_title"/>
+        <result column="pucture_url" property="pucture_url"/>
+        <result column="picture_name" property="picture_name"/>
+        <result column="picture_newname" property="picture_newname"/>
+        <result column="picture_detail" property="picture_detail"/>
+        <result column="picture_uploadtime" property="picture_uploadtime"/>
+        <result column="picture_author" property="picture_author"/>
+        <result column="picture_showOnIndex" property="picture_showOnIndex"/>
+        <result column="picture_category_id" property="picture_category_id"/>
+    </resultMap>
+
+    <!-- 根据条件查询对应图片 -->
+    <select id="getRecords" resultMap="pictureResult"
+            parameterType="picture">
+        SELECT
+        <include refid="columns"/>
+        FROM picture
+        <include refid="whereClause"/>
+        order by picture_uploadtime desc
+    </select>
+
+    <select id="getMaxRecord" resultType="int">
+		SELECT MAX(id)    
+		FROM picture
+	</select>
+
+    <!-- 查询图片总数 -->
+    <select id="getTotalRecord" resultType="int" parameterType="picture">
+        SELECT count(*)
+        FROM picture
+        <include refid="whereClause"/>
+    </select>
+
+    <!-- 根据图片ID查询 -->
+    <select id="getRecordById" resultMap="pictureResult" parameterType="string">
+        SELECT
+        <include refid="columns"/>
+        FROM picture
+        WHERE picture_id = #{picture_id}
+    </select>
+
+    <insert id="insertRecord" parameterType="picture">
+        INSERT INTO picture(
+        picture_id
+        <if test="picture_title != null">,picture_title</if>
+        <if test="pucture_url != null">,pucture_url</if>
+        <if test="picture_name != null">,picture_name</if>
+        <if test="picture_newname != null">,picture_newname</if>
+        <if test="picture_detail != null">,picture_detail</if>
+        <if test="picture_uploadtime != null">,picture_uploadtime</if>
+        <if test="picture_author != null">,picture_author</if>
+        <if test="picture_showOnIndex != null">,picture_showOnIndex</if>
+        <if test="picture_category_id != null">,picture_category_id</if>
+        <if test="extra1 != null">,extra1</if>
+        ) VALUES(
+        #{picture_id}
+        <if test="picture_title != null">,#{picture_title}</if>
+        <if test="pucture_url != null">,#{pucture_url}</if>
+        <if test="picture_name != null">,#{picture_name}</if>
+        <if test="picture_newname != null">,#{picture_newname}</if>
+        <if test="picture_detail != null">,#{picture_detail}</if>
+        <if test="picture_uploadtime != null">,#{picture_uploadtime}</if>
+        <if test="picture_author != null">,#{picture_author}</if>
+        <if test="picture_showOnIndex != null">,#{picture_showOnIndex}</if>
+        <if test="picture_category_id != null">,#{picture_category_id}</if>
+        <if test="extra1 != null">,#{extra1}</if>
+        )
+    </insert>
+
+    <update id="updateRecord" parameterType="picture">
+        UPDATE picture
+        <set>
+            <if test="picture_name != null">picture_name=#{picture_name}</if>
+            <if test="picture_title != null">,picture_title = #{picture_title}</if>
+            <if test="pucture_url != null">,pucture_url=#{pucture_url}</if>
+            <if test="picture_newname != null">,picture_newname=#{picture_newname}</if>
+            <if test="picture_detail != null">,picture_detail=#{picture_detail}</if>
+            <if test="picture_uploadtime != null">,picture_uploadtime=#{picture_uploadtime}</if>
+            <if test="picture_author != null">,picture_author=#{picture_author}</if>
+            <if test="picture_showOnIndex != null">,picture_showOnIndex=#{picture_showOnIndex}</if>
+            <if test="picture_category_id != null">,picture_category_id=#{picture_category_id}</if>
+            <if test="extra1 != null">,extra1=#{extra1}</if>
+        </set>
+        WHERE picture_id = #{picture_id}
+    </update>
+
+    <delete id="deleteRecordById" parameterType="string">
+		DELETE FROM picture WHERE picture_id = #{picture_id} 
+	</delete>
+
+</mapper>

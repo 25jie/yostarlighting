@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jgre.dao.ProductCustomPropertyDao">
+   
+	<sql id="columns">
+	custom_property_id,product_category,property_name,property_value,property_use,property_order,create_time,update_time
+	</sql>
+	<sql id="whereClause">
+		<where>
+			<if test="custom_property_id != null">custom_property_id = #{custom_property_id}</if>
+			<if test="product_category != null">and product_category=#{product_category}</if>
+			<if test="property_name != null">and property_name=#{property_name}</if>
+			<if test="property_value != null">and property_value=#{property_value}</if>
+			<if test="property_use != null">and property_use=#{property_use}</if>
+			<if test="property_order != null">and inputime=#{property_order}</if>
+			<if test="create_time != null">and create_time=#{create_time}</if>
+			<if test="update_time != null">and update_time=#{update_time}</if>
+		</where>
+	</sql>
+	<resultMap type="productCustomProperty" id="customPropertyResult">
+		<result column="custom_property_id" property="custom_property_id" />
+		<result column="product_category" property="product_category" />
+		<result column="property_name" property="property_name" />
+		<result column="property_value" property="property_value" />
+		<result column="property_use" property="property_use" />
+		<result column="property_order" property="property_order" />
+		<result column="create_time" property="create_time" />
+		<result column="update_time" property="update_time" />
+	</resultMap>
+	
+	<!-- 查询出所有的课程数据 -->
+	<select id="getRecords" resultMap="customPropertyResult"
+		parameterType="productCustomProperty">
+		SELECT
+		<include refid="columns" />
+		FROM product_custom_property
+		<include refid="whereClause" /> 
+		order by property_order desc
+	</select>
+	
+	<!-- 查询出所有的课程数据 -->
+	<select id="getCustomPropertys" resultMap="customPropertyResult"
+		parameterType="productCustomProperty">
+		SELECT
+		<include refid="columns" />
+		FROM product_custom_property
+		<include refid="whereClause" /> 
+		order by property_order desc
+	</select>
+	
+	<select id="getMaxRecord" resultType="int">
+		SELECT MAX(id)    
+		FROM product_custom_property
+	</select>
+	<select id="getTotalRecord" resultType="int" parameterType="productCustomProperty">
+		SELECT count(*) 
+		FROM product_custom_property <include refid="whereClause" />
+	</select>
+	
+	<!-- 查询课程编号是否存在 -->
+	<select id="getRecordById" resultMap="customPropertyResult" parameterType="string">
+		SELECT 
+		 <include refid="columns" />
+		FROM product_custom_property 
+		WHERE custom_property_id = #{custom_property_id}
+	</select>
+	
+	<insert id="insertRecord" parameterType="productCustomProperty">
+		INSERT INTO product_custom_property(
+			custom_property_id
+			<if test="product_category != null">,product_category</if>	
+			<if test="property_name != null">,property_name</if>	
+			<if test="property_value != null">,property_value</if>	
+			<if test="property_use != null">,property_use</if>
+			<if test="property_order != null">,property_order</if>	
+			<if test="create_time != null">,create_time</if>
+			<if test="update_time != null">,update_time</if>
+		) VALUES(
+			#{custom_property_id}
+			<if test="product_category != null">,#{product_category}</if>	
+			<if test="property_name != null">,#{property_name}</if>	
+			<if test="property_value != null">,#{property_value}</if>	
+			<if test="property_use != null">,#{property_use}</if>	
+			<if test="property_order != null">,#{property_order}</if>	
+			<if test="create_time != null">,#{create_time}</if>	
+			<if test="update_time != null">,#{update_time}</if>
+		)
+	</insert>
+	<update id="updateRecord" parameterType="productCustomProperty">
+		UPDATE product_custom_property
+		<set>
+			<if test="product_category != null">product_category = #{product_category}</if>	
+			<if test="property_name != null">,property_name=#{property_name}</if>	
+			<if test="property_value != null">,property_value=#{property_value}</if>	
+			<if test="property_use != null">,property_use=#{property_use}</if>	
+			<if test="property_order != null">,property_order=#{property_order}</if>	
+			<if test="create_time != null">,create_time=#{create_time}</if>	
+			<if test="update_time != null">,update_time=#{update_time}</if>	
+		</set>
+		WHERE  custom_property_id = #{custom_property_id}
+	</update>
+	<delete id="deleteRecordById" parameterType="string">
+		DELETE FROM product_custom_property WHERE custom_property_id = #{custom_property_id} 
+	</delete>
+</mapper>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jgre.dao.MessageDao">
+	<sql id="columns">
+	message_id,message_time,message_person,message_title,message_type, message_type_id,message_content,message_content_html,message_person_id,message_person_pic,message_type_name, message_person_tel, message_person_email,
+    message_person_company,message_person_address,isLook
+	</sql>
+	<sql id="whereClause">
+		<where>
+			<if test="message_id != null">message_id = #{message_id}</if>
+			<if test="message_time != null">and message_time>#{message_time}</if>
+			<if test="message_person != null">and message_person=#{message_person}</if>
+			<if test="message_title != null">and message_title=#{message_title}</if>
+			<if test="message_type_id != null">and message_type_id=#{message_type_id}</if>
+			<if test="message_content != null">and message_content=#{message_content}</if>
+			<if test="message_content_html != null">and message_content_html=#{message_content_html}</if>
+			<if test="message_person_id != null">and message_person_id=#{message_person_id}</if>
+			<if test="message_person_pic != null">and message_person_pic=#{message_person_pic}</if>
+			<if test="message_type_name != null">and message_type_name=#{message_type_name}</if>
+			<if test="message_person_tel != null">and message_person_tel=#{message_person_tel}</if>
+			<if test="message_person_email != null">and message_person_email=#{message_person_email}</if>
+			<if test="message_person_company != null">and message_person_company=#{message_person_company}</if>
+			<if test="message_person_address != null">and message_person_address=#{message_person_address}</if>
+			<if test="isLook != null">and isLook=#{isLook}</if>
+		</where>
+	</sql>
+	
+	<resultMap type="message" id="messageResult">
+		<result column="message_id" 	property="message_id" />
+		<result column="message_time" 	property="message_time" />
+		<result column="message_person" 	property="message_person" />
+		<result column="message_title" 	property="message_title" />
+		<result column="message_type" 	property="message_type" />
+		<result column="message_type_id" 	property="message_type_id" />
+	
+		<result column="message_content" 	property="message_content" />
+		<result column="message_content_html" 	property="message_content_html" />
+		<result column="message_person_id" 	property="message_person_id" />
+		<result column="message_person_pic" 	property="message_person_pic" />
+        <result column="message_type_name" 	property="message_type_name" />
+        
+        <result column="message_person_tel" 	property="message_person_tel" />
+        <result column="message_person_email" 	property="message_person_email" />
+        <result column="message_person_company" 	property="message_person_company" />
+        <result column="message_person_address" 	property="message_person_address" />
+          <result column="isLook" 	property="isLook" />
+        
+	</resultMap>
+	
+	<!-- 查询出所有的课程数据 -->
+	<select id="getRecords" resultMap="messageResult"
+		parameterType="message">
+		SELECT
+		<include refid="columns" />
+		FROM message
+		<include refid="whereClause" />  order by message_time desc 
+	</select>
+	
+	<!-- 查询课程最大id -->
+	<select id="getMaxRecord" resultType="int">
+		SELECT MAX(id)    
+		FROM message
+	</select>
+	<!-- 查询课程总数 -->
+	<select id="getTotalRecord" resultType="int" parameterType="message">
+		SELECT count(*) 
+		FROM message <include refid="whereClause" />
+	</select>
+	
+	<!-- 查询课程编号是否存在 -->
+	<select id="getRecordById" resultMap="messageResult" parameterType="string">
+		SELECT 
+		 <include refid="columns" />
+		FROM message 
+		WHERE message_id = #{message_id}
+	</select>
+	<update id="updateRecord" parameterType="message">
+		UPDATE message
+		<set>
+			<if test="message_time != null">message_time=#{message_time}</if>	
+			<if test="message_person != null">,message_person=#{message_person}</if>	
+			<if test="message_title != null">,message_title=#{message_title}</if>	
+			<if test="message_type != 0">,message_type=#{message_type}</if>
+			<if test="message_type_id != null">,message_type_id=#{message_type_id}</if>
+			
+			<if test="message_content != null">,message_content=#{message_content}</if>	
+			<if test="message_content_html != null">,message_content_html=#{message_content_html}</if>	
+			<if test="message_person_id != null">,message_person_id=#{message_person_id}</if>	
+			<if test="message_person_pic != null">,message_person_pic=#{message_person_pic}</if>	
+			<if test="message_type_name != null">,message_type_name=#{message_type_name}</if>	
+			
+			<if test="message_person_tel != null">,message_person_tel=#{message_person_tel}</if>	
+			<if test="message_person_email != null">,message_person_email=#{message_person_email}</if>	
+			<if test="message_person_company != null">,message_person_company=#{message_person_company}</if>	
+			<if test="message_person_address != null">,message_person_address=#{message_person_address}</if>	
+			<if test="isLook != null">,isLook=#{isLook}</if>	
+		</set>
+		WHERE message_id = #{message_id}
+	</update>
+	
+	
+	<insert id="insertRecord" parameterType="message">
+		INSERT INTO message(
+			message_id
+			<if test="message_time != null">,message_time</if>	
+			<if test="message_person != null">,message_person</if>	
+			<if test="message_title != null">,message_title</if>	
+			<if test="message_type != 0">,message_type</if>
+			<if test="message_type_id != null">,message_type_id</if>
+			
+			<if test="message_content != null">,message_content</if>	
+			<if test="message_content_html != null">,message_content_html</if>	
+			<if test="message_person_id != null">,extra1</if>	
+			<if test="message_person_pic != null">,extra2</if>	
+			<if test="message_type_name != null">,extra3</if>	
+			<if test="message_person_tel != null">,message_person_tel</if>	
+			<if test="message_person_email != null">,message_person_email</if>	
+			<if test="message_person_company != null">,message_person_company</if>	
+			<if test="message_person_address != null">,message_person_address</if>	
+			<if test="isLook != null">,isLook</if>			
+		) VALUES(
+			#{message_id}
+			<if test="message_time != null">,#{message_time}</if>	
+			<if test="message_person != null">,#{message_person}</if>	
+			<if test="message_title != null">,#{message_title}</if>	
+			<if test="message_type !=0">,#{message_type}</if>	
+			<if test="message_type_id != null">,#{message_type_id}</if>
+			<if test="message_content != null">,#{message_content}</if>
+			<if test="message_content_html != null">,#{message_content_html}</if>	
+			<if test="message_person_id != null">,#{message_person_id}</if>	
+			<if test="message_person_pic != null">,#{message_person_pic}</if>	
+			<if test="message_type_name != null">,#{message_type_name}</if>
+			<if test="message_person_tel != null">,#{message_person_tel}</if>	
+			<if test="message_person_email != null">,#{message_person_email}</if>	
+			<if test="message_person_company != null">,#{message_person_company}</if>	
+			<if test="message_person_address != null">,#{message_person_address}</if>
+			<if test="isLook != null">,#{isLook}</if>	
+		)
+	</insert>
+
+
+	
+	<delete id="deleteRecordById" parameterType="string">
+		DELETE FROM message WHERE message_id = #{message_id} 
+	</delete>
+	
+</mapper>

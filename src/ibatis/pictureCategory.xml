@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jgre.dao.PictureCategoryDao">
+    <sql id="discuss_count">
+       (select count(1) from message where message_type_id=picture_cate_id and message_type="PICTURE") as picture_cate_discusses
+    </sql>
+	<sql id="columns">
+	picture_cate_id,picture_cate_auhor,picture_cate_title, picture_cate_describe,picture_cate_name,picture_cate_views ,picture_cate_discusses, picture_cate_createTimes, picture_cate_recommend,picture_cate_sort
+	</sql>
+	<sql id="whereClause">
+		<where>
+			<if test="picture_cate_id != null">picture_cate_id = #{picture_cate_id}</if>
+			<if test="picture_cate_auhor != null">and picture_cate_auhor=#{picture_cate_auhor}</if>
+			<if test="picture_cate_title != null">and picture_cate_title=#{picture_cate_title}</if>
+			<if test="picture_cate_name != null">and picture_cate_name=#{picture_cate_name}</if>
+			<if test="picture_cate_describe != null">and picture_cate_describe=#{picture_cate_describe}</if>
+			<if test="picture_cate_views != null">and picture_cate_views=#{picture_cate_views}</if>
+			<if test="picture_cate_discusses != null">and picture_cate_discusses=#{picture_cate_discusses}</if>
+			<if test="picture_cate_createTimes != null">and picture_cate_createTimes=#{picture_cate_createTimes}</if>
+			<if test="picture_cate_recommend != null">and picture_cate_recommend=#{picture_cate_recommend}</if>
+			<if test="picture_cate_sort != 0">and picture_cate_sort=#{picture_cate_sort}</if>
+		</where>
+	</sql>
+	
+	<resultMap type="pictureCategory" id="pictureCategoryResult">
+		<result column="picture_cate_id" 	property="picture_cate_id" />
+		<result column="picture_cate_auhor" 	property="picture_cate_auhor" />
+		<result column="picture_cate_title" 	property="picture_cate_title" />
+		<result column="picture_cate_describe" 	property="picture_cate_describe" />
+		<result column="picture_cate_name" 	property="picture_cate_name" />
+		<result column="picture_cate_views" 	property="picture_cate_views" />
+		<result column="picture_cate_discusses" 	property="picture_cate_discusses" />
+		<result column="picture_cate_createTimes" 	property="picture_cate_createTimes" />
+		<result column="picture_cate_recommend" 	property="picture_cate_recommend" />
+		<result column="picture_cate_sort" 	property="picture_cate_sort" />
+	</resultMap>
+	
+	<!-- 查询出所有的课程数据 -->
+	<select id="getRecords" resultMap="pictureCategoryResult"
+		parameterType="pictureCategory">
+		SELECT
+		<include refid="columns" />
+		FROM picturecategory
+		<include refid="whereClause" /> order by picture_cate_sort asc
+	</select>
+	
+	<!-- 查询课程最大id -->
+	<select id="getMaxRecord" resultType="int">
+		SELECT IFNULL(MAX(picture_cate_sort),0)    
+		FROM picturecategory
+	</select>
+	<!-- 查询课程总数 -->
+	<select id="getTotalRecord" resultType="int" parameterType="pictureCategory">
+		SELECT count(*) 
+		FROM picturecategory
+	</select>
+	
+	<!-- 查询课程编号是否存在 -->
+	<select id="getRecordById" resultMap="pictureCategoryResult" parameterType="string">
+		SELECT 
+		 <include refid="columns" />
+		FROM picturecategory 
+		WHERE picture_cate_id = #{picture_cate_id}
+	</select>
+	
+	<insert id="insertRecord" parameterType="pictureCategory">
+		INSERT INTO pictureCategory(
+			picture_cate_id
+			<if test="picture_cate_auhor != null">,picture_cate_auhor</if>	
+			<if test="picture_cate_title != null">,picture_cate_title</if>	
+			<if test="picture_cate_describe != null">,picture_cate_describe</if>	
+			<if test="picture_cate_name != null">,picture_cate_name</if>	
+			<if test="picture_cate_views != null">,picture_cate_views</if>
+			<if test="picture_cate_discusses != null">,picture_cate_discusses</if>
+			<if test="picture_cate_createTimes != null">,picture_cate_createTimes</if>	
+			<if test="picture_cate_recommend != null">,picture_cate_recommend</if>
+			<if test="picture_cate_sort != 0">,picture_cate_sort</if>
+		) VALUES(
+			#{picture_cate_id}
+			<if test="picture_cate_auhor != null">,#{picture_cate_auhor}</if>	
+			<if test="picture_cate_title != null">,#{picture_cate_title}</if>	
+			<if test="picture_cate_describe != null">,#{picture_cate_describe}</if>	
+			<if test="picture_cate_name != null">,#{picture_cate_name}</if>	
+			<if test="picture_cate_views != null">,#{picture_cate_views}</if>
+			<if test="picture_cate_discusses != null">,#{picture_cate_discusses}</if>
+			<if test="picture_cate_createTimes != null">,#{picture_cate_createTimes}</if>	
+			<if test="picture_cate_recommend != null">,#{picture_cate_recommend}</if>
+			<if test="picture_cate_sort != 0">,#{picture_cate_sort}</if>
+		)
+	</insert>
+	
+	<update id="updateRecord" parameterType="pictureCategory">
+		UPDATE pictureCategory
+		<set>
+		    <if test="picture_cate_name != null">picture_cate_name=#{picture_cate_name}</if>
+			<if test="picture_cate_auhor != null">,picture_cate_auhor=#{picture_cate_auhor}</if>	
+			<if test="picture_cate_title != null">,picture_cate_title=#{picture_cate_title}</if>	
+			<if test="picture_cate_describe != null">,picture_cate_describe=#{picture_cate_describe}</if>	
+			<if test="picture_cate_views != null">,picture_cate_views=#{picture_cate_views}</if>
+			<if test="picture_cate_discusses != null">,picture_cate_discusses=#{picture_cate_discusses}</if>
+			<if test="picture_cate_createTimes != null">,picture_cate_createTimes=#{picture_cate_createTimes}</if>	
+			<if test="picture_cate_recommend != null">,picture_cate_recommend=#{picture_cate_recommend}</if>
+			<if test="picture_cate_sort != 0">,picture_cate_sort=#{picture_cate_sort}</if>
+		</set>
+		WHERE picture_cate_id = #{picture_cate_id}
+	</update>
+	
+	<delete id="deleteRecordById" parameterType="string">
+		DELETE FROM pictureCategory WHERE picture_cate_id = #{picture_cate_id} 
+	</delete>
+	
+</mapper>

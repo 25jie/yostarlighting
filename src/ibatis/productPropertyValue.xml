@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jgre.dao.ProductPropertyValueDao">
+   
+	<sql id="columns">
+	id,product_id,property_id,property_name,property_value
+	</sql>
+	<sql id="whereClause">
+		<where>
+			<if test="id != null">id = #{id}</if>
+			<if test="product_id != null">and product_id=#{product_id}</if>
+			<if test="property_id != null">and property_id=#{property_id}</if>
+			<if test="property_value != null">and property_value=#{property_value}</if>
+			<if test="property_name != null">and inputime=#{property_name}</if>
+		</where>
+	</sql>
+	<resultMap type="productPropertyValue" id="propertyValueResult">
+		<result column="id" property="id" />
+		<result column="product_id" property="product_id" />
+		<result column="property_id" property="property_id" />
+		<result column="property_value" property="property_value" />
+		<result column="property_name" property="property_name" />
+	</resultMap>
+	
+	<select id="getRecords" resultMap="propertyValueResult"
+		parameterType="productPropertyValue">
+		SELECT
+		<include refid="columns" />
+		FROM product_property_value
+		<include refid="whereClause" /> 
+	</select>
+	
+	<select id="getPropertyValues" resultMap="propertyValueResult"
+		parameterType="productPropertyValue">
+		SELECT
+		<include refid="columns" />
+		FROM product_property_value
+		<include refid="whereClause" /> 
+	</select>
+	
+	<select id="getMaxRecord" resultType="int">
+		SELECT MAX(id)    
+		FROM product_property_value
+	</select>
+	<select id="getTotalRecord" resultType="int" parameterType="productPropertyValue">
+		SELECT count(*) 
+		FROM product_property_value <include refid="whereClause" />
+	</select>
+	
+	<!-- 查询课程编号是否存在 -->
+	<select id="getRecordById" resultMap="propertyValueResult" parameterType="string">
+		SELECT 
+		 <include refid="columns" />
+		FROM product_property_value 
+		WHERE id = #{id}
+	</select>
+	
+	<insert id="insertRecord" parameterType="productPropertyValue">
+		INSERT INTO product_property_value(
+			id
+			<if test="product_id != null">,product_id</if>	
+			<if test="property_id != null">,property_id</if>	
+			<if test="property_value != null">,property_value</if>	
+			<if test="property_name != null">,property_name</if>	
+		) VALUES(
+			#{id}
+			<if test="product_id != null">,#{product_id}</if>	
+			<if test="property_id != null">,#{property_id}</if>	
+			<if test="property_value != null">,#{property_value}</if>	
+			<if test="property_name != null">,#{property_name}</if>	
+		)
+	</insert>
+	<update id="updateRecord" parameterType="productPropertyValue">
+		UPDATE product_property_value
+		<set>
+			<if test="product_id != null">product_id = #{product_id}</if>	
+			<if test="property_id != null">,property_id=#{property_id}</if>	
+			<if test="property_value != null">,property_value=#{property_value}</if>	
+			<if test="property_name != null">,property_name=#{property_name}</if>	
+		</set>
+		WHERE  id = #{id}
+	</update>
+	<delete id="deleteRecordById" parameterType="string">
+		DELETE FROM product_property_value WHERE id = #{id} 
+	</delete>
+	<delete id="deleteRecordByProductId" parameterType="string">
+		DELETE FROM product_property_value WHERE product_id = #{product_id} 
+	</delete>
+</mapper>

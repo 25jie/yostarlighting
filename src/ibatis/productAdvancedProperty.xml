@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jgre.dao.AdvancedPropertyDao">
+   
+	<sql id="columns">
+	advanced_property_id,product_id,advanced_property_name,content_html,content_text,inputime,author
+	</sql>
+	<sql id="whereClause">
+		<where>
+			<if test="advanced_property_id != null">advanced_property_id = #{advanced_property_id}</if>
+			<if test="product_id != null">and product_id=#{product_id}</if>
+			<if test="advanced_property_name != null">and advanced_property_name=#{advanced_property_name}</if>
+			<if test="content_html != null">and content_html=#{content_html}</if>
+			<if test="content_text != null">and content_text=#{content_text}</if>
+			<if test="inputime != null">and inputime=#{inputime}</if>
+			<if test="author != null">and author=#{author}</if>
+		</where>
+	</sql>
+	<resultMap type="productAdvancedProperty" id="productAdvancedPropertyResult">
+		<result column="advanced_property_id" property="advanced_property_id" />
+		<result column="product_id" property="product_id" />
+		<result column="advanced_property_name" property="advanced_property_name" />
+		<result column="content_html" property="content_html" />
+		<result column="content_text" property="content_text" />
+		<result column="inputime" property="inputime" />
+		<result column="author" property="author" />
+	</resultMap>
+	
+	<!-- 查询出所有的课程数据 -->
+	<select id="getRecords" resultMap="productAdvancedPropertyResult"
+		parameterType="productAdvancedProperty">
+		SELECT
+		<include refid="columns" />
+		FROM product_advanced_property
+		<include refid="whereClause" /> 
+	</select>
+
+	<select id="getAdvancedPropertys" resultMap="productAdvancedPropertyResult"
+		parameterType="productAdvancedProperty">
+		SELECT
+		<include refid="columns" />
+		FROM product_advanced_property
+		<include refid="whereClause" />   
+	</select>
+
+	<select id="getMaxRecord" resultType="int">
+		SELECT MAX(id)    
+		FROM product_advanced_property
+	</select>
+	<select id="getTotalRecord" resultType="int" parameterType="productAdvancedProperty">
+		SELECT count(*) 
+		FROM product_advanced_property <include refid="whereClause" />
+	</select>
+	
+	<!-- 查询课程编号是否存在 -->
+	<select id="getRecordById" resultMap="productAdvancedPropertyResult" parameterType="string">
+		SELECT 
+		 <include refid="columns" />
+		FROM product_advanced_property 
+		WHERE advanced_property_id = #{advanced_property_id}
+	</select>
+	
+	<insert id="insertRecord" parameterType="productAdvancedProperty">
+		INSERT INTO product_advanced_property(
+			advanced_property_id
+			<if test="product_id != null">,product_id</if>	
+			<if test="advanced_property_name != null">,advanced_property_name</if>	
+			<if test="content_html != null">,content_html</if>	
+			<if test="content_text != null">,content_text</if>
+			<if test="inputime != null">,inputime</if>
+			<if test="author != null">,author</if>
+		) VALUES(
+			#{advanced_property_id}
+			<if test="product_id != null">,#{product_id}</if>	
+			<if test="advanced_property_name != null">,#{advanced_property_name}</if>	
+			<if test="content_html != null">,#{content_html}</if>	
+			<if test="content_text != null">,#{content_text}</if>	
+			<if test="inputime != null">,#{inputime}</if>
+			<if test="author != null">,#{author}</if>
+		)
+	</insert>
+	<update id="updateRecord" parameterType="productAdvancedProperty">
+		UPDATE product_advanced_property
+		<set>
+			<if test="product_id != null">product_id = #{product_id}</if>	
+			<if test="advanced_property_name != null">,advanced_property_name=#{advanced_property_name}</if>	
+			<if test="content_html != null">,content_html=#{content_html}</if>	
+			<if test="content_text != null">,content_text=#{content_text}</if>	
+			<if test="inputime != null">,inputime=#{inputime}</if>	
+			<if test="author != null">,author=#{author}</if>	
+		</set>
+		WHERE  advanced_property_id = #{advanced_property_id}
+	</update>
+	<delete id="deleteRecordById" parameterType="string">
+		DELETE FROM product_advanced_property WHERE advanced_property_id = #{advanced_property_id} 
+	</delete>
+	
+	<delete id="deleteRecordByProductId" parameterType="string">
+		DELETE FROM product_advanced_property WHERE product_id = #{product_id} 
+	</delete>
+	
+</mapper>

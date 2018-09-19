@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Yostar Lighting</title>
+    <script type="text/javascript" src="../common/js/sysInit.js?v=1.0"></script>
+    <!-- Bootstrap -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/swiper.min.css" rel="stylesheet">
+    <link href="css/style.css?v=1.0" rel="stylesheet">
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?917303a21be19f39b70b759830f16178";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+
+<body>
+<div class="container container-main clear-padding">
+    <div class="logo"><img src="imgs/logo3.png"></div>
+    <div class="nav-container">
+        <ul class="nav-box" id="navBox" data-nav="homeContainer">
+            <li class="active" data-nav="homeContainer">
+                <a href="#">Home</a>
+            </li>
+            <li data-nav="aboutUsContainer" data-article="ABOUTEUS">
+                <a href="#">About Us</a>
+            </li>
+            <li data-nav="servicesContainer" data-article="CAREER">
+                <a href="#">Services</a>
+            </li>
+            <li data-nav="galleryContainer">
+                <a href="#">Gallery</a>
+            </li>
+            <li data-nav="contactUsContainer" data-article="CONTACTUS">
+                <a href="#">Contact Us</a>
+            </li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="row content-row" id="mainBox">
+        <div class="col-md-3">
+            <div class="sidebar-block">
+                <nav class="navbar navbar-default navbar-category-menu navbar-collapse clear-padding">
+                    <div class="sidebar-block-head">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-category-menu" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <div class="menu-header">Shop by Category</div>
+                    </div>
+                    <div class="sidebar-block-body">
+                        <div class="panel-group category-menu navbar-collapse collapse clear-padding clear-margin" id="sidebar-category-menu" role="tablist" aria-multiselectable="true" aria-expanded="false" style="height: 1px;">
+                            <ul class="menu-content" id="menuBox"></ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <!--<div class="menu-header">Shop by Category</div>-->
+            <div class="menu-header margintop20 max-device">New Products</div>
+            <ul class="newpdt-content main-pdt-list max-device" id="newProduct">
+                <li class="new-pdt pdt-item">
+                    <img src="" id="newpdtimg">
+                    <p id="newpdtsummary">暂无产品~</p>
+                    <p id="newpdtwarranty"></p>
+                </li>
+                <li class="questions">
+                    <span>Got Questions?</span>
+                    <p>Contact now<br>
+                        <small>info@yostarlighting.com</small>
+                    </p>
+                    <div class="row">
+                        <div class="col-md-8 left">Expert Service and Support</div>
+                        <div class="col-md-4 right"><img src="imgs/phone.png"></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-9 tab-box" id="homeContainer">
+            <!--<div class="banner"><img id="mainrecomimg" src="imgs/slim-line.png"/></div>-->
+            <div class="content-title clearmgtop"><p>Featured Products</p></div>
+            <ul class="main-pdt-list" id="recomPdtList"></ul>
+        </div>
+        <div class="col-md-9 tab-box" id="pdtListContainer">
+        	<div class="content-title clearmgtop" id="listTitle"><p></p></div>
+        	<ul class="main-pdt-list" id="outherPdtList"></ul>
+        </div>
+        <div class="col-md-9 tab-box" id="pdtDetailContainer" style="display: none;">
+            <div class="content-title clearmgtop" id="detailTitle"><p></p></div>
+            <div class="row">
+                <div class="col-md-5 detail-img"><img src="" id="pdtDetailImg"/></div>
+                <div class="col-md-7 detail-base">
+                    <p id="pdtName">&nbsp;</p>
+                    <span id="customProperty">&nbsp;</span>
+                    <p id="inStock">&nbsp;</p>
+                    <div class="detail-price" id="getPrice"></div>
+                </div>
+            </div>
+            <div class="detail-head"><p>&nbsp;</p></div>
+            <div class="detail-more"></div>
+        </div>
+        <div class="col-md-9 tab-box" id="aboutUsContainer">
+            <div class="content-title clearmgtop"><p>About Us</p></div>
+            <div id="aboutUsContent" class="content-box"></div>
+        </div>
+        <div class="col-md-9 tab-box" id="servicesContainer">
+            <div class="content-title clearmgtop"><p>Services</p></div>
+            <div id="servicesContent" class="content-box"></div>
+        </div>
+        <div class="col-md-9 tab-box" id="galleryContainer">
+            <div class="content-title clearmgtop"><p>Gallery</p></div>
+            <div id="galleryContent" class="swiper-box">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+
+                    </div>
+                    <!-- 如果需要分页器 -->
+                    <div class="swiper-pagination"></div>
+                    <!-- 如果需要导航按钮 -->
+                    <!--<div class="swiper-button-prev"></div>-->
+                    <!--<div class="swiper-button-next"></div>-->
+                    <!-- 如果需要滚动条
+                    <div class="swiper-scrollbar"></div>
+                    -->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 tab-box" id="contactUsContainer">
+            <div class="content-title clearmgtop"><p>Contact Us</p></div>
+            <div id="contactUsContent" class="content-box"></div>
+            <div id="userMessageContent" class="message-box">
+                <p class="msg-title">Send Us E-Mail</p>
+                <div class="row msg-row">
+                    <div class="col-md-4">
+                        <input type="text" class="required" placeholder="E-Mail*" id="eMail" maxlength="40">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="required" placeholder="Name*" id="name"  maxlength="20">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" placeholder="Phone" id="phone"  maxlength="20">
+                    </div>
+                </div>
+                <div class="row msg-row">
+                    <div class="col-md-6"><input type="text" placeholder="Contry" id="contry" maxlength="100"></div>
+                    <div class="col-md-6"><input type="text" placeholder="Company name" id="companyName" maxlength="100"></div>
+                </div>
+                <div class="msg-row">
+                    <input type="text" class="required" placeholder="Subject*" id="subject" maxlength="100">
+                </div>
+                <div class="msg-row">
+                    <textarea placeholder="Message*" class="required" rows="6" id="message" maxlength="500"></textarea>
+                </div>
+                <div>
+                    <a href="javascript:void(0)" id="submitMessage" class="msg-submit">Submit</a>
+                    <span id="submitResult"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="copyright">
+    <p>Copyright © 2018 Shenzhen Yostar Lighting Ltd. China All rights reserved.</p>
+</div>
+
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边)
+https://code.jquery.com/jquery-3.3.1.min.js-->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../common/js/util.js?v=1.0"></script>
+<script type="text/javascript" src="js/main.js?v=1.0"></script>
+<script type="text/javascript" src="js/swiper.min.js"></script>
+</body>
+
+</html>

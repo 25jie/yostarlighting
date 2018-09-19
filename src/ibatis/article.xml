@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jgre.dao.ArticleDao">
+   
+	<sql id="columns">
+	article_id,article_title,article_content,article_pubtime,article_author,article_category,article_html,article_view_count,article_discess_count, needshow,last_modifytime,article_categoryDM
+	</sql>
+	<sql id="whereClause">
+		<where>
+			<if test="article_id != null">article_id = #{article_id}</if>
+			<if test="article_title != null">and article_title=#{article_title}</if>
+			<if test="article_content != null">and article_content=#{article_content}</if>
+			<if test="article_pubtime != null">and article_pubtime=#{article_pubtime}</if>
+			<if test="article_author != null">and article_author=#{article_author}</if>
+			<if test="article_category != null">and article_category=#{article_category}</if>
+			<if test="article_html != null">and article_html=#{article_html}</if>
+			<if test="needshow != null">and needshow=#{needshow}</if>
+			<if test="last_modifytime != null">and last_modifytime=#{last_modifytime}</if>
+			<if test="article_categoryDM != null">and article_categoryDM=#{article_categoryDM}</if>
+		</where>
+	</sql>
+	<sql id="whereClause_a">
+		<where>
+			<if test="article_id != null">article_id = #{article_id}</if>
+			<if test="article_title != null">and article_title=#{article_title}</if>
+			<if test="article_content != null">and article_content=#{article_content}</if>
+			<if test="article_pubtime != null">and article_pubtime=#{article_pubtime}</if>
+			<if test="article_author != null">and article_author=#{article_author}</if>
+			<if test="article_category == null">and article_category!="SMALLTALK"</if>
+			<if test="article_html != null">and article_html=#{article_html}</if>
+			<if test="needshow != null">and needshow=#{needshow}</if>
+			<if test="last_modifytime != null">and last_modifytime=#{last_modifytime}</if>
+			<if test="article_categoryDM != null">and article_categoryDM=#{article_categoryDM}</if>
+		</where>
+	</sql>
+	<resultMap type="article" id="articleResult">
+		<result column="article_id" 	property="article_id" />
+		<result column="article_title" 	property="article_title" />
+		<result column="article_content" 	property="article_content" />
+		<result column="article_pubtime" 	property="article_pubtime" />
+		<result column="article_author" 	property="article_author" />
+		<result column="article_category" 	property="article_category" />
+		<result column="article_html" 	property="article_html" />
+		<result column="article_view_count" 	property="article_view_count" />
+		<result column="article_discess_count" 	property="article_discess_count" />
+		<result column="needshow" 	property="needshow" />
+		<result column="last_modifytime" 	property="last_modifytime" />
+		<result column="article_categoryDM" 	property="article_categoryDM" />
+	</resultMap>
+	
+	<!-- 查询出所有的课程数据 -->
+	<select id="getRecords" resultMap="articleResult"
+		parameterType="article">
+		SELECT
+		<include refid="columns" />
+		FROM articleinfo
+		<include refid="whereClause" /> order by article_pubtime desc
+	</select>
+	<select id="getArticlesAll" resultMap="articleResult"
+		parameterType="article">
+		SELECT
+		<include refid="columns" />
+		FROM articleinfo
+		<include refid="whereClause_a" />   order by article_pubtime desc
+	</select>
+	<!-- 查询课程最大id -->
+	<select id="getMaxRecord" resultType="int">
+		SELECT MAX(id)    
+		FROM articleinfo
+	</select>
+	<!-- 查询课程总数 -->
+	<select id="getTotalRecord" resultType="int" parameterType="article">
+		SELECT count(*) 
+		FROM articleinfo <include refid="whereClause" />
+	</select>
+	
+	<!-- 查询课程编号是否存在 -->
+	<select id="getRecordById" resultMap="articleResult" parameterType="string">
+		SELECT 
+		 <include refid="columns" />
+		FROM articleinfo 
+		WHERE article_id = #{article_id}
+	</select>
+	
+	<insert id="insertRecord" parameterType="article">
+		INSERT INTO articleinfo(
+			article_id
+			<if test="article_title != null">,article_title</if>	
+			<if test="article_content != null">,article_content</if>	
+			<if test="article_pubtime != null">,article_pubtime</if>	
+			<if test="article_author != null">,article_author</if>
+			<if test="article_category != null">,article_category</if>
+			<if test="article_html != null">,article_html</if>	
+			<if test="article_view_count != null">,article_view_count</if>	
+			<if test="article_discess_count != null">,article_discess_count</if>	
+			<if test="needshow != null">,needshow</if>	
+			<if test="last_modifytime != null">,last_modifytime</if>
+			<if test="article_categoryDM!= null">,article_categoryDM</if>			
+		) VALUES(
+			#{article_id}
+			<if test="article_title != null">,#{article_title}</if>	
+			<if test="article_content != null">,#{article_content}</if>	
+			<if test="article_pubtime != null">,#{article_pubtime}</if>	
+			<if test="article_author != null">,#{article_author}</if>	
+			<if test="article_category != null">,#{article_category}</if>
+			<if test="article_html != null">,#{article_html}</if>
+			<if test="article_view_count != null">,#{article_view_count}</if>	
+			<if test="article_discess_count != null">,#{article_discess_count}</if>	
+			<if test="needshow != null">,#{needshow}</if>	
+			<if test="last_modifytime != null">,#{last_modifytime}</if>	
+			<if test="article_categoryDM!= null">,#{article_categoryDM}</if>	
+		)
+	</insert>
+	<update id="updateRecord" parameterType="article">
+		UPDATE articleinfo
+		<set>
+			<if test="article_title != null">article_title = #{article_title}</if>	
+			<if test="article_content != null">,article_content=#{article_content}</if>	
+			<if test="article_pubtime != null">,article_pubtime=#{article_pubtime}</if>	
+			<if test="article_author != null">,article_author=#{article_author}</if>	
+			<if test="article_category != null">,article_category=#{article_category}</if>	
+			<if test="article_html != null">,article_html=#{article_html}</if>	
+			<if test="article_view_count != null">,article_view_count=#{article_view_count}</if>	
+			<if test="article_discess_count != null">,article_discess_count=#{article_discess_count}</if>	
+			<if test="needshow != null">,needshow=#{needshow}</if>	
+			<if test="last_modifytime != null">,last_modifytime=#{last_modifytime}</if>	
+			<if test="article_categoryDM!= null">,article_categoryDM=#{article_categoryDM}</if>	
+		</set>
+		WHERE  article_id = #{article_id}
+	</update>
+	<update id="updateUse" parameterType="article">
+	    UPDATE articleinfo 
+	      <set>
+	      needshow='N'
+	      <if test="last_modifytime != null">,last_modifytime=#{last_modifytime}</if>	
+	      </set>
+	      where needshow='Y'  
+	      <if test="article_category != null">and article_category=#{article_category}</if> 
+	      <if test="article_categoryDM != null">and article_categoryDM=#{article_categoryDM}</if>
+	</update>
+	<delete id="deleteRecordById" parameterType="string">
+		DELETE FROM articleinfo WHERE article_id = #{article_id} 
+	</delete>
+	<select id="getArticleByViews" resultMap="articleResult"
+		parameterType="article">
+		SELECT
+		<include refid="columns" />
+		FROM articleinfo
+		<include refid="whereClause" /> order by article_view_count desc limit 10
+	</select>
+</mapper>

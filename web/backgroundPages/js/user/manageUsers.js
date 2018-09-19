@@ -1,0 +1,49 @@
+$(document).ready(function(){
+    	$("#userTbody").initUsers({
+    		offset:0,
+    		limit:5,
+    		action:MyUtil.getContext()+"getUsers.do",
+    		showNews:MyUtil.getContext()
+    	});
+    	$(".list_table").colResizable({
+            liveDrag:true,
+            gripInnerHtml:"<div class='grip'></div>", 
+            draggingClass:"dragging", 
+            minWidth:30
+          }); 
+    	
+    	//删除
+    	$("#delBtn").del({
+    		CheckBoxName:"user_id",
+    		ACTION:MyUtil.getContext()+"deleteUsers.do"
+    	});
+    	//新增
+    	$("#addBtn").click(function(){
+    		window.location.href=MyUtil.getContext()+"backgroundPages/jsp/user/editUsers.jsp";
+    	});
+    	//编辑
+    	$("#editBtn").click(function(){
+    		var _ckid="";
+			 $("input[name='user_id']:checked").each(function (){
+                   _ckid=this.value;
+                   return;
+            });
+			 if(_ckid==""){
+				 alert("请选择一个对象");
+				 return;
+			 }
+    		window.location.href=MyUtil.getContext()+"backgroundPages/jsp/user/editUsers.jsp?objectId="+_ckid;
+    	});
+    	//全选
+    	$("#ckAll").click(function(){
+    		$(this).hide();
+    		$("#ckNo").show();
+    		$("input[type='checkbox'][name='user_id']").attr("checked",true);
+    	});
+    	//取消
+    	$("#ckNo").click(function(){
+    		$(this).hide();
+    		$("#ckAll").show();
+    		$("input[type='checkbox'][name='user_id']").attr("checked",false);
+    	});
+    });

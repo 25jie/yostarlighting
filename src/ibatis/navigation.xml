@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jgre.dao.NavDao">
+	<sql id="columns">
+ navigation_id,navigation_parent,navigation_name,navigation_url,navigation_desc,navigation_type,navigation_icon,navigation_order,navigation_level,navigation_other
+	</sql>
+	<sql id="whereClause">
+		<where>
+			<if test="navigation_id != null">navigation_id = #{navigation_id}</if>
+			<if test="navigation_parent != null">and navigation_parent = #{navigation_parent}</if>
+			<if test="navigation_name != null">and navigation_name = #{navigation_name}</if>
+			<if test="navigation_url != null">and navigation_url = #{navigation_url}</if>
+			<if test="navigation_desc != null">and navigation_desc = #{navigation_desc}</if>
+			<if test="navigation_type != null">and navigation_type = #{navigation_type}</if>
+			<if test="navigation_icon != null">and navigation_icon = #{navigation_icon}</if>
+			<if test="navigation_order != 0">and navigation_order = #{navigation_order}</if>
+			<if test="navigation_level != 0">and navigation_level = #{navigation_level}</if>
+			<if test="navigation_other != null">and navigation_other = #{navigation_other}</if>
+		</where>
+	</sql>
+	<resultMap type="navigation" id="navResult">
+		<result column="navigation_id" 	property="navigation_id" />
+		<result column="navigation_parent" 	property="navigation_parent" />
+		<result column="navigation_name" 	property="navigation_name" />
+		<result column="navigation_url" 	property="navigation_url" />
+		<result column="navigation_desc" 	property="navigation_desc" />
+		<result column="navigation_type" 	property="navigation_type" />
+		<result column="navigation_icon" 	property="navigation_icon" />
+		<result column="navigation_order" 	property="navigation_order" />
+		<result column="navigation_level" 	property="navigation_level" />
+		<result column="navigation_other" 	property="navigation_other" />
+	</resultMap>
+	
+	<resultMap type="navigation" id="menuResult">
+		<result column="navigation_id" 	property="navigation_id" />
+		<result column="navigation_parent" 	property="navigation_parent" />
+		<result column="navigation_name" 	property="navigation_name" />
+		<result column="navigation_url" 	property="navigation_url" />
+		<result column="navigation_desc" 	property="navigation_desc" />
+		<result column="navigation_type" 	property="navigation_type" />
+		<result column="navigation_icon" 	property="navigation_icon" />
+		<result column="navigation_order" 	property="navigation_order" />
+		<result column="navigation_level" 	property="navigation_level" />
+		<result column="navigation_other" 	property="navigation_other" />
+		<collection property="subMenus" column="navigation_id" ofType="navigation" select="getSubMenu"></collection>
+	</resultMap>
+	<!-- 查询菜单 -->
+	<select id="getSubMenu" parameterType="String" resultMap="navResult">
+	    SELECT
+		<include refid="columns" />
+		FROM navigation where navigation_parent=#{navigation_id} order by navigation_order asc 
+	</select>
+	
+	<!-- 查询出所有的课程数据 -->
+	<select id="getRecords" resultMap="menuResult"
+		parameterType="navigation">
+		SELECT
+		<include refid="columns" />
+		FROM navigation
+		<include refid="whereClause" />
+		 order by navigation_order asc
+	</select>
+	
+	
+	<!-- 查询课程最大id -->
+	<select id="getMaxRecord" resultType="int">
+		SELECT MAX(navigation_order)    
+		FROM navigation
+	</select>
+	<!-- 查询课程总数 -->
+	<select id="getTotalRecord" resultType="int" parameterType="navigation">
+		SELECT count(*) 
+		FROM navigation
+	</select>
+	
+	<!-- 查询课程编号是否存在 -->
+	<select id="getRecordById" resultMap="navResult" parameterType="string">
+		SELECT 
+		 <include refid="columns" />
+		FROM navigation 
+		WHERE navigation_id = #{navigation_id}
+	</select>
+	
+	<insert id="insertRecord" parameterType="navigation">
+		INSERT INTO navigation(
+			navigation_id
+			<if test="navigation_parent != null">,navigation_parent</if>
+			<if test="navigation_name != null">,navigation_name</if>
+			<if test="navigation_url != null">,navigation_url</if>
+			<if test="navigation_desc != null">,navigation_desc</if>
+			<if test="navigation_type != null">,navigation_type</if>
+			<if test="navigation_icon != null">,navigation_icon</if>
+			<if test="navigation_order != 0">,navigation_order</if>
+			<if test="navigation_level != 0">,navigation_level</if>
+			<if test="navigation_other != null">,navigation_other</if>		
+		) VALUES(
+			#{navigation_id}
+			<if test="navigation_parent != null">,#{navigation_parent}</if>	
+			<if test="navigation_name != null">,#{navigation_name}</if>
+			<if test="navigation_url != null">,#{navigation_url}</if>
+			<if test="navigation_desc != null">,#{navigation_desc}</if>
+			<if test="navigation_type != null">,#{navigation_type}</if>
+			<if test="navigation_icon != null">,#{navigation_icon}</if>
+			<if test="navigation_order != 0">,#{navigation_order}</if>
+			<if test="navigation_level != 0">,#{navigation_level}</if>
+			<if test="navigation_other != null">,#{navigation_other}</if>		
+		)
+	</insert>
+	<update id="updateRecord" parameterType="navigation">
+		UPDATE navigation
+		<set>
+			<if test="navigation_parent != null">navigation_parent=#{navigation_parent}</if>	
+			<if test="navigation_name != null">,navigation_name=#{navigation_name}</if>
+			<if test="navigation_url != null">,navigation_url=#{navigation_url}</if>
+			<if test="navigation_desc != null">,navigation_desc=#{navigation_desc}</if>
+			<if test="navigation_type != null">,navigation_type=#{navigation_type}</if>
+			<if test="navigation_icon != null">,navigation_icon=#{navigation_icon}</if>
+			<if test="navigation_order != 0">,navigation_order=#{navigation_order}</if>
+			<if test="navigation_level != 0">,navigation_level=#{navigation_level}</if>
+			<if test="navigation_other != null">,navigation_other=#{navigation_other}</if>	
+		</set>
+		WHERE navigation_id = #{navigation_id}
+	</update>
+
+	<delete id="deleteRecordById" parameterType="string">
+		DELETE FROM navigation WHERE navigation_id = #{navigation_id}
+	</delete>
+
+	<update id="setState" parameterType="string">
+	   update navigation <if test="navigation_other != null">navigation_other=#{navigation_other}</if>	where 
+	</update>
+</mapper>

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!--set lazy fetching -->
+		<setting name="lazyLoadingEnabled" value="false" />
+	</settings>
+
+	<typeAliases>
+		<typeAlias alias="userinfo" type="cn.com.jgre.entity.Userinfo" />	
+		<typeAlias alias="message" type="cn.com.jgre.entity.Messageinfo" />
+		<typeAlias alias="article" type="cn.com.jgre.entity.ArticleInfo" />
+		<typeAlias alias="picture" type="cn.com.jgre.entity.Pictureinfo" />
+		<typeAlias alias="navigation" type="cn.com.jgre.entity.Navigation" />
+		<typeAlias alias="category" type="cn.com.jgre.entity.Category" />
+		<typeAlias alias="newsInfo" type="cn.com.jgre.entity.NewsInfo" />
+		<typeAlias alias="newsCategory" type="cn.com.jgre.entity.NewsCategory" />
+		<typeAlias alias="pictureCategory" type="cn.com.jgre.entity.PictureCategory" />
+		<typeAlias alias="productCustomProperty" type="cn.com.jgre.entity.ProductCustomProperty" />
+		<typeAlias alias="productPropertyValue" type="cn.com.jgre.entity.ProductPropertyValue" />
+		<typeAlias alias="productBasic" type="cn.com.jgre.entity.ProductBasic" />
+		<typeAlias alias="productAdvancedProperty" type="cn.com.jgre.entity.ProductAdvancedProperty" />
+		<typeAlias alias="companyBaseInfo" type="cn.com.jgre.entity.CompanyBaseInfo" />
+		<typeAlias alias="productPicture" type="cn.com.jgre.entity.ProductPicture" />
+		<typeAlias alias="kinMaxShow" type="cn.com.jgre.entity.KinMaxShow" />
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="ibatis/userinfo.xml"/>
+		<mapper resource="ibatis/message.xml"/>
+		<mapper resource="ibatis/article.xml"/>
+		<mapper resource="ibatis/picture.xml"/>
+	    <mapper resource="ibatis/navigation.xml"/>
+	    <mapper resource="ibatis/category.xml"/>
+	    <mapper resource="ibatis/news.xml"/>
+	    <mapper resource="ibatis/newsCategory.xml"/>
+	    <mapper resource="ibatis/pictureCategory.xml"/>
+	    <mapper resource="ibatis/productCustomProperty.xml"/>
+	    <mapper resource="ibatis/productPropertyValue.xml"/>
+	    <mapper resource="ibatis/productBasic.xml"/>
+	    <mapper resource="ibatis/productAdvancedProperty.xml"/>
+	    <mapper resource="ibatis/productPicture.xml"/>
+	    <mapper resource="ibatis/common.xml"/>
+	</mappers>
+</configuration>

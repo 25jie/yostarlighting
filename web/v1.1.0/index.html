@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+		<title>Yostar Lighting</title>
+		<link rel="stylesheet" href="css/style.css" />
+		<script>
+            var _hmt = _hmt || [];
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?917303a21be19f39b70b759830f16178";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+		</script>
+	</head>
+
+	<body>
+		<div class="page">
+			<div class="header">
+				<div class="top">
+					<a class="logo"><img src="imgs/logo2.png"></a>
+					<div class="nav-box clear">
+						<ul>
+							<li class="page-link" data-pageid="index"><a href="javascript:void(0)" class="active">HOME</a></li>
+							<li class="page-link" data-pageid="pdtList">
+								<a href="javascript:void(0)" class="arrow-up category-box" id="categoryNav">
+									PRODUCTS
+									<div class="category-list" style="display: none;"></div>
+								</a>
+							</li>
+							<li class="page-link" data-pageid="aboutUs"><a href="javascript:void(0)">ABOUT US</a></li>
+							<li class="page-link" data-pageid="services"><a href="javascript:void(0)">SERVICES</a></li>
+							<li class="page-link" data-pageid="gallery"><a href="javascript:void(0)">GALLERY</a></li>
+							<li class="page-link" data-pageid="contactUs"><a href="javascript:void(0)">CONTACT US</a></li>
+						</ul>	
+						<div class="search">
+							<input placeholder="Type your keyword..." id="searchInput">
+							<a class="search-btn" id="searchBtn">Search</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="body">
+				<div class="content index" id="index">
+					<ul class="pdt-list clear"></ul>
+				</div>
+				<div class="content list" id="pdtList">
+					<div class="pdt-nav">
+						<a href="javascript:void(0)" class="arrow-right" data-pageid="index">PRODUCTS</a>
+						<span id="listLevel2" href="javascript:void(0)"></span>
+					</div>
+					<ul class="pdt-list clear"></ul>
+				</div>
+				<div class="content detail" id="pdtDetail">
+					<div class="pdt-nav">
+						<a id="level1" href="javascript:void(0)" class="arrow-right" data-pageid="index">HOME</a>
+						<a id="level2" href="javascript:void(0)" class="arrow-right" data-pageid="pdtList"></a>
+						<span id="level3" href="javascript:void(0)"></span>
+					</div>
+					<div class="container">
+						<div class="pdt-detail">
+							<p class="name" id="pdtName">&nbsp;</p>
+							<p id="detailTitle">&nbsp;</p>
+							<p id="summary">&nbsp;</p>
+							<p id="productSpec">&nbsp;</p>
+							<p id="customProperty">&nbsp;</p>
+							<p id="inStock">&nbsp;</p>
+							<p id="warranty">&nbsp;</p>
+							<p class="price" id='getPrice'><a href="">GET PRICE</a></p>
+							<div class="advance">&nbsp;</div>
+						</div>
+						<div class="pdt-img">
+							<div class="img-box">
+								<img id="pdtDetailImg" src="">	
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="content about" id="aboutUs">
+					<div id="aboutUsContent"></div>
+				</div>
+				<div class="content services" id="services">
+					<div id="servicesContent"></div>
+				</div>
+				<div class="content gallery" id="gallery">
+					Give us some time...
+				</div>
+				<div class="content contact" id="contactUs">
+					<div id="contactUsContent"></div>
+				</div>
+			</div>
+			<div class="footer clear">
+				<div id="userMessageContent" class="message-box">
+					<p class="msg-title">SEND US E-MAIL</p>
+					<div class="msg-row">
+						<div class="col">
+							<input type="text" class="required" placeholder="E-Mail*" id="eMail" maxlength="40" autocomplete="off">
+						</div>
+						<div class="col mg16">
+							<input type="text" class="required" placeholder="Name*" id="name"  maxlength="20" autocomplete="off">
+						</div>
+						<div class="col">
+							<input type="text" placeholder="Phone" id="phone"  maxlength="20" autocomplete="off">
+						</div>
+					</div>
+					<div class="msg-row">
+						<div class="col mgr16"><input type="text" placeholder="Contry" id="contry" maxlength="100" autocomplete="off"></div>
+						<div class="col"><input type="text" placeholder="Company name" id="companyName" maxlength="100" autocomplete="off"></div>
+					</div>
+					<div class="msg-row">
+						<input type="text" class="required" placeholder="Subject*" id="subject" maxlength="100" autocomplete="off">
+					</div>
+					<div class="msg-row">
+						<textarea placeholder="Message*" class="required" rows="6" id="message" maxlength="500"></textarea>
+					</div>
+					<div>
+						<a href="javascript:void(0)" id="submitMessage" class="msg-submit">Submit</a>
+						<span id="submitResult"></span>
+					</div>
+				</div>
+				<div class="bottom-nav">
+					<p class="msg-title">SITE MAP</p>
+					<ul>
+						<li class="page-link" data-pageid="index"><a href="javascript:void(0)" class="active">HOME</a></li>
+						<li class="page-link" data-pageid="pdtList"><a href="javascript:void(0)">PRODUCTS</a></li>
+						<li class="page-link" data-pageid="aboutUs"><a href="javascript:void(0)">ABOUT US</a></li>
+						<li class="page-link" data-pageid="services"><a href="javascript:void(0)">SERVICES</a></li>
+						<li class="page-link" data-pageid="gallery"><a href="javascript:void(0)">GALLERY</a></li>
+						<li class="page-link" data-pageid="contactUs"><a href="javascript:void(0)">CONTACT US</a></li>
+					</ul>
+				</div>
+				<div class="copyright">
+					<p>Copyright © 2018 Shenzhen Yostar Lighting Ltd. China All rights reserved.</p>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+		<script type="text/javascript" src="../common/js/util.js"></script>
+		<script type="text/javascript" src="js/index.js" ></script>
+	</body>
+</html>

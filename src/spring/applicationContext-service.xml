@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+       http://www.springframework.org/schema/aop 
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+
+	<!-- 用户信息数据访问bean配置 -->
+	<bean id="userService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="cn.com.jgre.serviceImpl.UserServiceImpl">
+				<property name="userDao" ref="userDao" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="messageService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="cn.com.jgre.serviceImpl.MessageServiceImpl">
+				<property name="messageDao" ref="messageDao" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="articleService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="cn.com.jgre.serviceImpl.ArticleServiceImpl">
+				<property name="articleDao" ref="articleDao" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="pictureService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="cn.com.jgre.serviceImpl.PictureServiceImpl">
+				<property name="pictureDao" ref="pictureDao" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="navService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="cn.com.jgre.serviceImpl.NavServiceImpl">
+				<property name="navDao" ref="navDao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="categoryService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="cn.com.jgre.serviceImpl.CategoryServiceImpl">
+				<property name="categoryDao" ref="categoryDao" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="newsService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="cn.com.jgre.serviceImpl.NewsServiceImpl">
+				<property name="newsDao" ref="newsDao" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="newsCategoryService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="cn.com.jgre.serviceImpl.NewsCategoryServiceImpl">
+				<property name="newsCategoryDao" ref="newsCategoryDao" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="pictureCategoryService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="cn.com.jgre.serviceImpl.PictureCategoryServiceImpl">
+				<property name="pictureCategoryDao" ref="pictureCategoryDao" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="customPropertyService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="cn.com.jgre.serviceImpl.CustomPropertyServiceImpl">
+				<property name="productCustomPropertyDao" ref="productCustomPropertyDao" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="propertyValueService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="cn.com.jgre.serviceImpl.PropertyValueServiceImpl">
+				<property name="productPropertyValueDao" ref="productPropertyValueDao" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="productBasicService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="cn.com.jgre.serviceImpl.ProductBasicServiceImpl">
+				<property name="productBasicDao" ref="productBasicDao" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="advancePropertyService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="cn.com.jgre.serviceImpl.AdvancePropertyServiceImpl">
+				<property name="advancedPropertyDao" ref="advancedPropertyDao" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="productPictureService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="cn.com.jgre.serviceImpl.ProductPictureServiceImpl">
+				<property name="productPictureDao" ref="productPictureDao" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="commonService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="cn.com.jgre.serviceImpl.CommonServiceImpl">
+				<property name="commonDao" ref="commonDao" />
+			</bean>
+		</property>
+	</bean>
+</beans>

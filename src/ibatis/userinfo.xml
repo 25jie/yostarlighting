@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jgre.dao.UserDao">
+	<sql id="columns">
+		userid,username,realname,isManager,sex,mobilphone,officephone,email,birthday,userpwd,userpic,qq,address,word,regtime,
+lastLogin,viewcount,jifen
+	</sql>
+	<sql id="whereClause">
+		<where>
+			<if test="userid != null">userid = #{userid}</if>
+			<if test="username != null">and username=#{username}</if>
+			<if test="realname != null">and realname=#{realname}</if>
+			<if test="isManager != null">and isManager=#{isManager}</if>
+			<if test="sex != null">and sex=#{sex}</if>
+			<if test="mobilphone != null">and mobilphone=#{mobilphone}</if>
+			<if test="officephone != null">and officephone=#{officephone}</if>
+			<if test="email != null">and email=#{email}</if>
+			<if test="birthday != null">and birthday=#{birthday}</if>
+			<if test="userpic != null">and userpic=#{userpic}</if>
+			<if test="qq != null">and qq=#{qq}</if>
+			<if test="address != null">and address=#{address}</if>
+			<if test="word != null">and word=#{word}</if>
+			<if test="lastLogin != null">and lastLogin=#{lastLogin}</if>
+			<if test="viewcount != null">and viewcount=#{viewcount}</if>
+			<if test="jifen != null">and jifen=#{jifen}</if>
+			<if test="showOnHome != null">and showOnHome=#{showOnHome}</if>
+			<if test="image != image">and image=#{image}</if>
+			<if test="introduce != null">and introduce=#{introduce}</if>
+		</where>
+	</sql>
+	<resultMap type="userinfo" id="userResult">
+		<result column="userid" 	property="userid" />
+		<result column="username" 	property="username" />
+			<result column="isManager" 	property="isManager" />
+			<result column="sex" 	property="sex" />
+			<result column="mobilphone" 	property="mobilphone" />
+			<result column="officephone" 	property="officephone" />
+			<result column="email" 	property="email" />
+			<result column="birthday" 	property="birthday" />
+			<result column="userpic" 	property="userpic" />
+			<result column="qq" 	property="qq" />
+			<result column="address" 	property="address" />
+			<result column="word" 	property="word" />
+			<result column="lastLogin" 	property="lastLogin" />
+			<result column="viewcount" 	property="viewcount" />
+			<result column="jifen" 	property="jifen" />
+			<result column="extra1" 	property="showOnHome" />
+			<result column="extra2" 	property="image" />
+			<result column="extra3" 	property="introduce" />
+	</resultMap>
+	
+	<resultMap type="companyBaseInfo" id="companyResult">
+	<result column="company_id" 	property="company_id" />
+		<result column="company_name" 	property="company_name" />
+		<result column="company_enname" 	property="company_enname" />
+			<result column="company_logo_url" 	property="company_logo_url" />
+			<result column="company_tel" 	property="company_tel" />
+			<result column="company_fax" 	property="company_fax" />
+			<result column="company_qq" 	property="company_qq" />
+			<result column="company_email" 	property="company_email" />
+			<result column="company_address" 	property="company_address" />
+			<result column="company_yuming" 	property="company_yuming" />
+			<result column="company_contactuser1" 	property="company_contactuser1" />
+			<result column="company_phone1" 	property="company_phone1" />
+			<result column="company_qq1" 	property="company_qq1" />
+			<result column="company_contactuser2" 	property="company_contactuser2" />
+			<result column="company_phone2" 	property="company_phone2" />
+			<result column="company_qq2" 	property="company_qq2" />
+	</resultMap>
+	
+	<!-- 查询出所有的课程数据 -->
+	<select id="getRecords" resultMap="userResult"
+		parameterType="userinfo">
+		SELECT
+		<include refid="columns" />
+		FROM userinfo
+		<include refid="whereClause" />
+		 order by regtime desc
+	</select>
+	
+	<!-- 查询课程最大id -->
+	<select id="getMaxRecord" resultType="int">
+		SELECT MAX(id)    
+		FROM userinfo
+	</select>
+	<!-- 查询课程总数 -->
+	<select id="getTotalRecord" resultType="int" parameterType="userinfo">
+		SELECT count(*) 
+		FROM userinfo
+	</select>
+	
+	<!-- 查询课程编号是否存在 -->
+	<select id="getRecordById" resultMap="userResult" parameterType="string">
+		SELECT 
+		 <include refid="columns" />
+		FROM userinfo 
+		WHERE userid = #{userid}
+	</select>
+	
+	<insert id="insertRecord" parameterType="userinfo">
+		INSERT INTO userinfo(
+			userid
+			<if test="username != null">,username</if>	
+			<if test="realname != null">,realname</if>	
+			<if test="isManager != null">,isManager</if>	
+			<if test="sex != null">,sex</if>	
+			<if test="mobilphone != null">,mobilphone</if>
+			<if test="officephone != null">,officephone</if>
+			<if test="email != null">,email</if>
+			<if test="birthday != null">,birthday</if>	
+			<if test="userpwd != null">,userpwd</if>	
+			<if test="userpic != null">,userpic</if>	
+			<if test="qq != null">,qq</if>	
+			<if test="address != null">,address</if>	
+			<if test="word != null">,word</if>	
+			<if test="regtime != null">,regtime</if>	
+			<if test="lastLogin != null">,lastLogin</if>	
+			<if test="viewcount != null">,viewcount</if>	
+			<if test="jifen != null">,jifen</if>
+			<if test="showOnHome != null">,extra1</if>
+			<if test="image != null">,extra2</if>
+			<if test="introduce != null">,extra3</if>		
+		) VALUES(
+			#{userid}
+			<if test="username != null">,#{username}</if>	
+			<if test="realname != null">,#{realname}</if>	
+			<if test="isManager != null">,#{isManager}</if>	
+			<if test="sex != null">,#{sex}</if>	
+			<if test="mobilphone != null">,#{mobilphone}</if>
+			<if test="officephone != null">,#{officephone}</if>
+			<if test="email != null">,#{email}</if>
+			<if test="birthday != null">,#{birthday}</if>	
+			<if test="userpwd != null">,#{userpwd}</if>	
+			<if test="userpic != null">,#{userpic}</if>	
+			<if test="qq != null">,#{qq}</if>	
+			<if test="address != null">,#{address}</if>	
+			<if test="word != null">,#{word}</if>	
+			<if test="regtime != null">,#{regtime}</if>	
+			<if test="lastLogin != null">,#{lastLogin}</if>	
+			<if test="viewcount != null">,#{viewcount}</if>	
+			<if test="jifen != null">,#{jifen}</if>	
+			<if test="showOnHome != null">,#{showOnHome}</if>
+			<if test="image != null">,#{image}</if>
+			<if test="introduce != null">,#{introduce}</if>		
+		)
+	</insert>
+	<update id="updateRecord" parameterType="userinfo">
+		UPDATE userinfo
+		<set>
+			<if test="username != null">username=#{username}</if>	
+			<if test="realname != null">,realname=#{realname}</if>	
+			<if test="isManager != null">,isManager=#{isManager}</if>	
+			<if test="sex != null">,sex=#{sex}</if>	
+			<if test="mobilphone != null">,mobilphone=#{mobilphone}</if>	
+			<if test="officephone != null">,officephone=#{officephone}</if>	
+			<if test="email != null">,email=#{email}</if>	
+			<if test="birthday != null">,birthday=#{birthday}</if>	
+			<if test="userpwd != null">,userpwd=#{userpwd}</if>	
+			<if test="userpic != null">,userpic=#{userpic}</if>	
+			<if test="qq != null">,qq=#{qq}</if>	
+			<if test="address != null">,address=#{address}</if>	
+			<if test="word != null">,word=#{word}</if>	
+			<if test="regtime != null">,regtime=#{regtime}</if>	
+			<if test="lastLogin != null">,lastLogin=#{lastLogin}</if>	
+			<if test="viewcount != null">,viewcount=#{viewcount}</if>	
+			<if test="jifen != null">,jifen=#{jifen}</if>	
+			<if test="showOnHome != null">,extra1=#{showOnHome}</if>
+			<if test="image != null">,extra2=#{image}</if>
+			<if test="introduce != null">,extra3=#{introduce}</if>	
+		</set>
+		WHERE userid = #{userid}
+	</update>
+	
+	<delete id="deleteRecordById" parameterType="string">
+		DELETE FROM userinfo WHERE userid = #{userid} 
+	</delete>
+	
+	<select id="getUserByName" parameterType="String" resultType="userinfo">
+	   select <include refid="columns" /> from userinfo where username=#{username}
+	</select>
+	<select id="login" parameterType="userinfo" resultType="userinfo">
+	   select <include refid="columns" /> from userinfo where username=#{username} and userpwd=#{userpwd}
+	</select>
+	
+	<select id="getByScole" resultMap="userResult">
+	    select <include refid="columns"/> from userinfo order by jifen desc limit 5
+	</select>
+	
+	<select id="getShowUser" resultMap="userResult">
+	    select <include refid="columns"/> from userinfo where showOnHome='1' 
+	</select>
+	
+	<!-- 公司信息 -->
+	<select id="getCompanyBaseInfo" resultMap="companyResult">
+	    select company_id,company_name,company_enname,company_logo_url,company_tel,company_fax,company_qq,company_email,company_address,
+company_yuming,company_contactuser1,company_phone1,company_qq1,company_contactuser2,company_phone2,company_qq2 from companybaseinfo 
+	</select>
+	
+	<update id="updateCompanyBaseInfo" parameterType="companyBaseInfo">
+		UPDATE companyBaseInfo
+		<set>
+			<if test="company_name != null">company_name=#{company_name}</if>	
+			<if test="company_enname != null">,company_enname=#{company_enname}</if>	
+			<if test="company_logo_url != null">,company_logo_url=#{company_logo_url}</if>	
+			<if test="company_tel != null">,company_tel=#{company_tel}</if>	
+			<if test="company_fax != null">,company_fax=#{company_fax}</if>	
+			<if test="company_qq != null">,company_qq=#{company_qq}</if>	
+			<if test="company_email != null">,company_email=#{company_email}</if>	
+			<if test="company_address != null">,company_address=#{company_address}</if>	
+			<if test="company_yuming != null">,company_yuming=#{company_yuming}</if>	
+			<if test="company_contactuser1 != null">,company_contactuser1=#{company_contactuser1}</if>	
+			<if test="company_phone1 != null">,company_phone1=#{company_phone1}</if>	
+			<if test="company_qq1 != null">,company_qq1=#{company_qq1}</if>	
+			<if test="company_contactuser2 != null">,company_contactuser2=#{company_contactuser2}</if>	
+			<if test="company_phone2 != null">,company_phone2=#{company_phone2}</if>	
+			<if test="company_qq2 != null">,company_qq2=#{company_qq2}</if>	
+		</set>
+		WHERE company_id = #{company_id}
+	</update>
+	
+</mapper>

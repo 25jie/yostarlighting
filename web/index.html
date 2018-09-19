@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Youstar Lighting</title>
+</head>
+<style>
+    .dot {
+        display: inline-block;
+        height: 12px;
+        line-height: 12px;
+        overflow: hidden;
+        text-align: left;
+        letter-spacing: 3px;
+        margin-left: 4px;
+    }
+
+    .dot::before {
+        display: block;
+        content: '...\A..\A.';
+        white-space: pre-wrap;
+        animation: dot 1.5s infinite step-start both;
+        -webkit-animation: dot 1.5s infinite step-start both;
+    }
+    @keyframes dot{
+        33%{transform: translateY(-24px);}
+        66%{transform: translateY(-12px);}
+    }
+    @-webkit-keyframes dot{
+        33%{transform: translateY(-24px);}
+        66%{transform: translateY(-12px);}
+    }
+</style>
+<body>
+<div style="margin: 40% 0; text-align: center">Loading<span class="dot">...</span></div>
+<script type="text/javascript" src="./common/js/sysInit.js?v=1.0"></script>
+</body>
+
+</html>

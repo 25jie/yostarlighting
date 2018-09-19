@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jgre.dao.ProductBasicDao">
+
+    <sql id="columns">
+	product_id,product_category,product_name,status,create_time,update_time,summary,warranty,product_title,product_spec,stock
+	</sql>
+    <sql id="whereClause">
+        <where>
+            1 = 1
+            <if test="product_id != null and product_id != ''">and product_id = #{product_id}</if>
+            <if test="product_category != null and product_category != ''">and product_category=#{product_category}</if>
+            <if test="product_name != null and product_name != ''">and product_name like "%"#{product_name}"%"</if>
+            <if test="status != null and status != ''">and status=#{status}</if>
+        </where>
+    </sql>
+    <resultMap type="productBasic" id="productBasicResult">
+        <result column="product_id" property="product_id"/>
+        <result column="product_category" property="product_category"/>
+        <result column="product_name" property="product_name"/>
+        <result column="status" property="status"/>
+        <result column="summary" property="summary"/>
+        <result column="warranty" property="warranty"/>
+        <result column="product_title" property="product_title"/>
+        <result column="product_spec" property="product_spec"/>
+        <result column="stock" property="stock"/>
+        <result column="create_time" property="create_time"/>
+        <result column="update_time" property="update_time"/>
+    </resultMap>
+
+    <resultMap type="productBasic" id="productBasicResult2">
+        <result column="product_id" property="product_id"/>
+        <result column="product_category" property="product_category"/>
+        <result column="product_name" property="product_name"/>
+        <result column="status" property="status"/>
+        <result column="summary" property="summary"/>
+        <result column="warranty" property="warranty"/>
+        <result column="product_title" property="product_title"/>
+        <result column="product_spec" property="product_spec"/>
+        <result column="stock" property="stock"/>
+        <result column="create_time" property="create_time"/>
+        <result column="update_time" property="update_time"/>
+        <result column="category_name" property="category_name"/>
+    </resultMap>
+
+    <resultMap type="productBasic" id="productBasicResult3">
+        <result column="product_id" property="product_id"/>
+        <result column="product_category" property="product_category"/>
+        <result column="product_name" property="product_name"/>
+        <result column="status" property="status"/>
+        <result column="summary" property="summary"/>
+        <result column="warranty" property="warranty"/>
+        <result column="product_title" property="product_title"/>
+        <result column="product_spec" property="product_spec"/>
+        <result column="stock" property="stock"/>
+        <result column="create_time" property="create_time"/>
+        <result column="update_time" property="update_time"/>
+        <result column="category_name" property="category_name"/>
+        <result column="picture_url" property="picture_url"/>
+    </resultMap>
+
+    <!-- 查询出所有的课程数据 -->
+    <select id="getRecords" resultMap="productBasicResult2" parameterType="productBasic">
+        SELECT
+        p.product_id,
+        p.product_category,
+        p.product_name,
+        p.status,
+        p.summary,
+        p.product_title,
+        p.product_spec,
+        p.stock,
+        p.warranty,
+        p.create_time,
+        p.update_time,
+        c.category_name
+        FROM
+        product_basic p
+        LEFT JOIN
+        category c
+        ON
+        p.product_category = c.category_id
+        <include refid="whereClause"/> order by p.update_time desc
+    </select>
+
+    <!-- 查询出所有的课程数据 -->
+    <select id="getProducts" resultMap="productBasicResult3" parameterType="productBasic">
+        SELECT
+        p.product_id,
+        p.product_category,
+        p.product_name,
+        p.status,
+        p.summary,
+        p.warranty,
+        p.product_title,
+        p.product_spec,
+        p.stock,
+        p.create_time,
+        p.update_time,
+        c.category_name,
+        pp.picture_url
+        FROM
+        product_basic p
+        LEFT JOIN
+        category c
+        ON
+        p.product_category = c.category_id
+        LEFT JOIN
+        product_picture pp
+        ON
+        p.product_id = pp.product_id
+        <include refid="whereClause"/>
+        and pp.show_index = 1
+        order by p.update_time desc
+    </select>
+
+
+    <select id="getProductBasics" resultMap="productBasicResult" parameterType="productBasic">
+        SELECT
+        <include refid="columns"/>
+        FROM product_basic
+        <include refid="whereClause"/>
+        order by update_time desc
+    </select>
+    <select id="getMaxRecord" resultType="int">
+		SELECT MAX(id)    
+		FROM product_basic
+	</select>
+    <select id="getTotalRecord" resultType="int" parameterType="productBasic">
+        SELECT count(*)
+        FROM
+        product_basic p
+        LEFT JOIN
+        category c
+        ON
+        p.product_category = c.category_id
+        <include refid="whereClause"/>
+    </select>
+
+    <select id="getTotalProduct" resultType="int" parameterType="productBasic">
+        SELECT count(*)
+        FROM product_basic p
+        LEFT JOIN
+        category c
+        ON
+        p.product_category = c.category_id
+        LEFT JOIN
+        product_picture pp
+        ON
+        p.product_id = pp.product_id
+        <include refid="whereClause"/>
+        and pp.show_index = 1
+    </select>
+
+    <!-- 查询课程编号是否存在 -->
+    <select id="getRecordById" resultMap="productBasicResult" parameterType="string">
+		SELECT
+			p.product_id,
+			p.product_category,
+			p.product_name,
+			p.status,
+			p.create_time,
+			p.summary,
+			p.warranty,
+			p.product_title,
+			p.product_spec,
+			p.stock,
+			p.update_time, 
+			c.category_name  
+		FROM 
+			product_basic p 
+		LEFT JOIN 
+			category c 
+		ON 
+			p.product_category = c.category_id 
+		WHERE product_id = #{product_id}
+	</select>
+
+    <select id="getRecomProducts" resultMap="productBasicResult3" parameterType="string">
+        SELECT
+        p.product_id,
+        p.product_category,
+        p.product_name,
+        p.status,
+        p.summary,
+        p.warranty,
+        p.product_title,
+        p.product_spec,
+        p.stock,
+        p.create_time,
+        p.update_time,
+        pp.picture_url
+        FROM
+        product_basic p
+        LEFT JOIN
+        product_advanced_property c
+        ON
+        p.product_id = c.product_id
+        LEFT JOIN
+        product_picture pp
+        ON
+        p.product_id = pp.product_id
+        WHERE p.status = 1 and c.author = 2 and pp.show_index = 1
+        order by p.update_time desc
+    </select>
+
+    <insert id="insertRecord" parameterType="productBasic">
+        INSERT INTO product_basic(
+        product_id
+        <if test="product_category != null">,product_category</if>
+        <if test="product_name != null">,product_name</if>
+        <if test="status != null">,status</if>
+        <if test="summary != null">,summary</if>
+        <if test="warranty != null">,warranty</if>
+        <if test="product_title != null">,product_title</if>
+        <if test="product_spec != null">,product_spec</if>
+        <if test="stock != null">,stock</if>
+        <if test="create_time != null">,create_time</if>
+        <if test="update_time != null">,update_time</if>
+        ) VALUES(
+        #{product_id}
+        <if test="product_category != null">,#{product_category}</if>
+        <if test="product_name != null">,#{product_name}</if>
+        <if test="status != null">,#{status}</if>
+        <if test="summary != null">,#{summary}</if>
+        <if test="warranty != null">,#{warranty}</if>
+        <if test="product_title != null">,#{product_title}</if>
+        <if test="product_spec != null">,#{product_spec}</if>
+        <if test="stock != null">,#{stock}</if>
+        <if test="create_time != null">,#{create_time}</if>
+        <if test="update_time != null">,#{update_time}</if>
+        )
+    </insert>
+    <update id="updateRecord" parameterType="productBasic">
+        UPDATE product_basic
+        <set>
+            <if test="product_category != null">product_category = #{product_category}</if>
+            <if test="product_name != null">,product_name=#{product_name}</if>
+            <if test="status != null">,status=#{status}</if>
+            <if test="summary != null">,summary=#{summary}</if>
+            <if test="warranty != null">,warranty=#{warranty}</if>
+            <if test="product_title != null">,product_title=#{product_title}</if>
+            <if test="product_spec != null">,product_spec=#{product_spec}</if>
+            <if test="stock != null">,stock=#{stock}</if>
+            <if test="create_time != null">,create_time=#{create_time}</if>
+            <if test="update_time != null">,update_time=#{update_time}</if>
+        </set>
+        WHERE product_id = #{product_id}
+    </update>
+    <delete id="deleteRecordById" parameterType="string">
+		DELETE FROM product_basic WHERE product_id = #{product_id} 
+	</delete>
+</mapper>

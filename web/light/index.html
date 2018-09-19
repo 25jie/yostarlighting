@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Yostar Lighting</title>
+    <link href="css/index.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="logo"><img src="imgs/logo3.png"></div>
+    <div class="header">
+        <div class="nav-container">
+            <ul class="nav-box" id="navBox" data-nav="homeContainer">
+                <li class="active" data-nav="homeContainer"><a href="#">Home</a></li>
+                <li data-nav="aboutUsContainer" data-article="ABOUTEUS"><a href="#">About Us</a></li>
+                <li data-nav="servicesContainer" data-article="CAREER"><a href="#">Services</a></li>
+                <li data-nav="galleryContainer"><a href="#">Gallery</a></li>
+                <li data-nav="contactUsContainer" data-article="CONTACTUS"><a href="#">Contact Us</a></li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="body">
+        <div class="left">
+            <div class="item">
+                <div class="menu-title">Show by Category</div>
+                <ul class="menu-content" id="menuBox"></ul>
+            </div>
+            <div class="item">
+                <div class="menu-title">New Products</div>
+                <ul class="new-content" id="newProduct">
+                    <li class="new-pdt pdt-item">
+                        <img src="" id="newpdtimg">
+                        <p id="newpdtsummary">暂无产品~</p>
+                        <p id="newpdtwarranty"></p>
+                    </li>
+                    <li class="questions">
+                        <span>Got Questions?</span>
+                        <p>Contact now<br>
+                            <small>info@yostarlighting.com</small>
+                        </p>
+                        <div class="qc">
+                            <div class="ql">Expert Service and Support</div>
+                            <div class="qr"><img src="imgs/phone.png"></div>
+                            <div class="clear"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+            <div class="tab-box" id="homeContainer">
+                <div class="content-title"><p>Featured Products</p></div>
+                <ul class="main-pdt-list" id="recomPdtList"></ul>
+            </div>
+            <div class="tab-box" id="pdtListContainer">
+                <div class="content-title" id="listTitle"><p></p></div>
+                <ul class="main-pdt-list" id="outherPdtList"></ul>
+            </div>
+            <div class="tab-box" id="pdtDetailContainer">
+                <div class="content-title" id="detailTitle"><p></p></div>
+                <div class="row">
+                    <div class="detail-img"><img src="" id="pdtDetailImg"/></div>
+                    <div class="detail-base">
+                        <p id="pdtName">&nbsp;</p>
+                        <span id="customProperty">&nbsp;</span>
+                        <p id="inStock">&nbsp;</p>
+                        <div class="detail-price" id="getPrice"></div>
+                    </div>
+                </div>
+                <div class="detail-head"><p>&nbsp;</p></div>
+                <div class="detail-more"></div>
+            </div>
+            <div class="tab-box" id="aboutUsContainer">
+                <div class="content-title"><p>About Us</p></div>
+                <div id="aboutUsContent" class="content-box"></div>
+            </div>
+            <div class="tab-box" id="servicesContainer">
+                <div class="content-title clearmgtop"><p>Services</p></div>
+                <div id="servicesContent" class="content-box"></div>
+            </div>
+            <div class="tab-box" id="galleryContainer">
+                <div class="content-title"><p>Gallery</p></div>
+                <div id="galleryContent" class="swiper-box">
+
+                </div>
+            </div>
+            <div class="tab-box" id="contactUsContainer">
+                <div class="content-title"><p>Contact Us</p></div>
+                <div id="contactUsContent" class="content-box"></div>
+                <div id="userMessageContent" class="message-box">
+                    <p class="msg-title">Send Us E-Mail</p>
+                    <div class="row msg-row">
+                        <div class="col-md-4">
+                            <input type="text" class="required" placeholder="E-Mail*" id="eMail" maxlength="40">
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="required" placeholder="Name*" id="name"  maxlength="20">
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" placeholder="Phone" id="phone"  maxlength="20">
+                        </div>
+                    </div>
+                    <div class="row msg-row">
+                        <div class="col-md-6"><input type="text" placeholder="Contry" id="contry" maxlength="100"></div>
+                        <div class="col-md-6"><input type="text" placeholder="Company name" id="companyName" maxlength="100"></div>
+                    </div>
+                    <div class="msg-row">
+                        <input type="text" class="required" placeholder="Subject*" id="subject" maxlength="100">
+                    </div>
+                    <div class="msg-row">
+                        <textarea placeholder="Message*" class="required" rows="6" id="message" maxlength="500"></textarea>
+                    </div>
+                    <div>
+                        <a href="javascript:void(0)" id="submitMessage" class="msg-submit">Submit</a>
+                        <span id="submitResult"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer"></div>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="../common/js/util.js?v=1.0"></script>
+<script type="text/javascript" src="js/main.js?v=1.0"></script>
+</body>
+</html>

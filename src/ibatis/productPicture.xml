@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.jgre.dao.ProductPictureDao">
+   
+	<sql id="columns">
+	product_picture_id,product_id,picture_id,picture_url,show_index
+	</sql>
+	<sql id="whereClause">
+		<where>
+			<if test="product_picture_id != null">product_picture_id = #{product_picture_id}</if>
+			<if test="product_id != null">and product_id=#{product_id}</if>
+			<if test="picture_id != null">and picture_id=#{picture_id}</if>
+			<if test="picture_url != null">and picture_url=#{picture_url}</if>
+		</where>
+	</sql>
+	<resultMap type="productPicture" id="productPictureResult">
+		<result column="product_picture_id" property="product_picture_id" />
+		<result column="product_id" property="product_id" />
+		<result column="picture_id" property="picture_id" />
+		<result column="picture_url" property="picture_url" />
+		<result column="show_index" property="show_index" />
+	</resultMap>
+	
+	<select id="getRecords" resultMap="productPictureResult"
+		parameterType="productPicture">
+		SELECT
+		<include refid="columns" />
+		FROM product_picture
+		<include refid="whereClause" /> 
+	</select>
+	<select id="getProductPictures" resultMap="productPictureResult"
+		parameterType="productPicture">
+		SELECT
+		<include refid="columns" />
+		FROM product_picture
+		<include refid="whereClause" />   
+		order by picture_id desc
+	</select>
+	<select id="getMaxRecord" resultType="int">
+		SELECT MAX(id)    
+		FROM product_picture
+	</select>
+	<select id="getTotalRecord" resultType="int" parameterType="productPicture">
+		SELECT count(*) 
+		FROM product_picture <include refid="whereClause" />
+	</select>
+	
+	<!-- 查询课程编号是否存在 -->
+	<select id="getRecordById" resultMap="productPictureResult" parameterType="string">
+		SELECT 
+		 <include refid="columns" />
+		FROM product_picture 
+		WHERE product_picture_id = #{product_picture_id}
+	</select>
+	
+	<insert id="insertRecord" parameterType="productPicture">
+		INSERT INTO product_picture(
+			product_picture_id
+			<if test="product_id != null">,product_id</if>	
+			<if test="picture_id != null">,picture_id</if>	
+			<if test="picture_url != null">,picture_url</if>
+			<if test="show_index != null">,show_index</if>
+		) VALUES(
+			#{product_picture_id}
+			<if test="product_id != null">,#{product_id}</if>	
+			<if test="picture_id != null">,#{picture_id}</if>	
+			<if test="picture_url != null">,#{picture_url}</if>	
+			<if test="show_index != null">,#{show_index}</if>
+		)
+	</insert>
+	<update id="updateRecord" parameterType="productPicture">
+		UPDATE product_picture
+		<set>
+			<if test="product_id != null">product_id = #{product_id}</if>	
+			<if test="picture_id != null">,picture_id=#{picture_id}</if>	
+			<if test="picture_url != null">,picture_url=#{picture_url}</if>	
+			<if test="show_index != null">,show_index=#{show_index}</if>	
+		</set>
+		WHERE  product_picture_id = #{product_picture_id}
+	</update>
+	<delete id="deleteRecordById" parameterType="string">
+		DELETE FROM product_picture WHERE product_picture_id = #{product_picture_id} 
+	</delete>
+	
+	<delete id="deleteRecordByProductId" parameterType="string">
+		DELETE FROM product_picture WHERE product_id = #{product_id} 
+	</delete>
+	<delete id="delRecordByPicIdAndProId" parameterType="productPicture">
+		DELETE FROM product_picture WHERE picture_id = #{picture_id} and product_id = #{product_id} 
+	</delete>
+	
+</mapper>
